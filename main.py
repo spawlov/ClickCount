@@ -20,7 +20,7 @@ def shorten_link(token: str, link: str) -> str:
         "url": link,
         "v": 5.199,
     }
-    print("Формирую сокращенную ссылку...", end="")  # noqa
+
     with requests.get(url=url, headers=headers, params=params, timeout=30) as response:
         response.raise_for_status()
         if "error" in response.text:
@@ -36,7 +36,7 @@ def count_clicks(token: str, link: str) -> str:
         "key": key,
         "v": 5.199,
     }
-    print("Проверяю статистику...", end="")  # noqa
+
     with requests.get(url=url, headers=headers, params=params, timeout=30) as response:
         response.raise_for_status()
         if "error" in response.text:
@@ -55,9 +55,9 @@ def main(link: str) -> str:
         return f'Некорректная ссылка: "{link}"'
     try:
         if not is_shorten_link(link):
-            result_message = f"сокращенная ссылка: {shorten_link(token, link)}"  # type: ignore
+            result_message = f"Сокращенная ссылка: {shorten_link(token, link)}"  # type: ignore
         else:
-            result_message = f"по ссылке {link} зафиксировано {count_clicks(token, link)} переход(ов)"  # type: ignore
+            result_message = f"По ссылке {link} зафиксировано {count_clicks(token, link)} переход(ов)"  # type: ignore
     except (
         requests.exceptions.HTTPError,
         requests.exceptions.ConnectionError,
