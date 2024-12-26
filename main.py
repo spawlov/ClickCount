@@ -64,7 +64,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Получение короткой ссылки или получение статистики переходов для существующей",
     )
-    parser.add_argument("link", help="Ссылка")
+    parser.add_argument("link", help="Ссылка в формате: https://example.com")
     link = parser.parse_args().link
 
     try:
