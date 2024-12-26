@@ -39,8 +39,8 @@ def count_clicks(token: str, link: str) -> str:
         response.raise_for_status()
         if "error" in response.text:
             raise ValueError(f"Произошла ошибка при получении статистики переходов по ссылке: {link}")
-        views = response.json()["response"]["stats"]
-        return response.json()["response"]["stats"][0]["views"] if views else "0"
+        stats = response.json()["response"]["stats"]
+        return response.json()["response"]["stats"][0]["views"] if stats else "0"
 
 
 def is_shorten_link(token: str, link: str) -> bool:
