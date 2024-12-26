@@ -1,3 +1,4 @@
+import argparse
 import os
 from typing import Any
 
@@ -38,7 +39,8 @@ def count_clicks(token: str, link: str) -> str:
         response.raise_for_status()
         if "error" in response.text:
             raise ValueError(f"Произошла ошибка при получении статистики переходов по ссылке: {link}")
-        return response.json()["response"]["stats"][0]["views"]
+        views = response.json()["response"]["stats"]
+        return response.json()["response"]["stats"][0]["views"] if views else "0"
 
 
 def is_shorten_link(token: str, link: str) -> bool:
@@ -58,7 +60,13 @@ def is_shorten_link(token: str, link: str) -> bool:
 def main() -> None:
     load_dotenv(find_dotenv())
     token = os.environ["VK_TOKEN"]
-    link = input("Введите ссылку: ").strip()
+
+    parser = argparse.ArgumentParser(
+        description="Получение короткой ссылки или получение статистики переходов для существующей",
+    )
+    parser.add_argument("link", help="Ссылка")
+    link = parser.parse_args().link
+
     try:
         if not validators.url(link):
             raise ValueError(f'Некорректная ссылка: "{link}"')
