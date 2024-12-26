@@ -53,7 +53,7 @@ def is_shorten_link(token: str, link: str) -> bool:
     with requests.get(url=url, headers=headers, params=params, timeout=30) as response:
         response.raise_for_status()
         if "error" in response.text:
-            raise ValueError(f"Произошла ошибка при проверке по ссылки: {link}")
+            raise ValueError(f"Произошла ошибка при проверке ссылки: {link}")
     return link != response.json()["response"]["link"]
 
 
